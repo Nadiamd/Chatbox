@@ -16,7 +16,7 @@
   var socket = io();
   const btn = document.querySelector("#send");
   btn.addEventListener("click", function (e) {
-    //le "e" est un param qui indique l'évènement
+    //le "e" est un paramètre qui indique l'évènement
     e.preventDefault(); // ne pas avoir le comportement par défaut
     getInputValue(); // à l'appel de la fonction, elle va s'executer et récupérer la valeur de l'input
   });
@@ -31,16 +31,20 @@
     message.innerText = infos.texto; // on intègre les data dans le li que nous venons de créer
     messages.appendChild(message);
     var trash = document.createElement("button");
-    trash.setAttribute("onclick", "todo()");
+    trash.setAttribute("onclick", "sendDeleteMessage(event)");
     trash.setAttribute("class", "trashButton");
     trash.innerText = "X";
     message.appendChild(trash);
   });
 
-  function todo() {
-    var parent = this.parentElement; //on accède à l'element parent du bouton "trash"
-    var verif = parent.getAttribute('numMessage'); // on accède à l'attribut de l'élement ciblé (dans le logique de l'element parent/enfant)
-    console.log(verif);
+  socket.on("deleteMessage", (number) => {
+    document.querySelector("[numMessage=" + CSS.escape(number) + "]").remove();
+  });
+
+  function sendDeleteMessage(event) {
+    var parent = event.target.parentElement; //on accède à l'element parent du bouton "trash"
+    var numMessageToDelete = parent.getAttribute("numMessage"); // on accède à l'attribut de l'élement ciblé (dans le logique de l'element parent/enfant)
+    socket.emit("delete", numMessageToDelete);
   }
   function getInputValue() {
     // Sélectionner l'élément input et récupérer sa valeur

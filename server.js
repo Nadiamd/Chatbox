@@ -13,16 +13,21 @@ app.get("/style.css", (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("connexion");
-  socket.on('message', texto => { // on écoute sur le canal "message"
-    console.log(texto) // data correspond ici au contenu de notre message 
-    var newData = {texto,counter}
-    console.log(newData.texto)
-    console.log(newData.counter)
+  socket.on("message", (texto) => {
+    // on écoute sur le canal "message"
+    console.log(texto); // data correspond ici au contenu de notre message
+    var newData = { texto, counter };
+    console.log(newData.texto);
+    console.log(newData.counter);
 
-    io.emit('message',newData); // le serveur renvoie "data" sur le canal "message"
-      // création d'un compteur 
-      counter +=1; // on incrémente de 1 à chaque fois
-    
+    io.emit("message", newData); // le serveur renvoie "data" sur le canal "message"
+    // création d'un compteur
+    counter += 1; // on incrémente de 1 à chaque fois
+  });
+
+  socket.on("delete", (number) => {
+    // on écoute sur le canal "delete"
+    io.emit("deleteMessage", number); // le serveur renvoie "number" de notre message à supprimer sur le canal "deleteMessage"
   });
 });
 
