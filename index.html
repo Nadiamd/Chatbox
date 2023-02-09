@@ -20,16 +20,28 @@
     e.preventDefault(); // ne pas avoir le comportement par défaut
     getInputValue(); // à l'appel de la fonction, elle va s'executer et récupérer la valeur de l'input
   });
-  socket.on("message", (data) => {
+  socket.on("message", (infos) => {
     // on écoute sur le canal "message"
-    console.log(data); // data correspond ici au contenu de notre message reçu
+    console.log(infos); // infos correspond ici au contenu de notre message reçu
+    //infos = {texto,counter}
     var messages = document.getElementById("messages"); //On récupère l'élement que l'on veut en ciblant son id
     var message = document.createElement("li"); // on vient créer un nouvel élement "message" et qui aura comme balise un <li>
     message.setAttribute("id", "unmessage"); // on crée  id de notre nouvel élément
-    message.innerText = data; // on intègre les data dans le li que nous venons de créer
+    message.setAttribute("numMessage", infos.counter); //
+    message.innerText = infos.texto; // on intègre les data dans le li que nous venons de créer
     messages.appendChild(message);
+    var trash = document.createElement("button");
+    trash.setAttribute("onclick", "todo()");
+    trash.setAttribute("class", "trashButton");
+    trash.innerText = "X";
+    message.appendChild(trash);
   });
 
+  function todo() {
+    var parent = this.parentElement; //on accède à l'element parent du bouton "trash"
+    var verif = parent.getAttribute('numMessage'); // on accède à l'attribut de l'élement ciblé (dans le logique de l'element parent/enfant)
+    console.log(verif);
+  }
   function getInputValue() {
     // Sélectionner l'élément input et récupérer sa valeur
     var input = document.getElementById("input");
