@@ -15,15 +15,20 @@
 <script>
   var socket = io();
   const btn = document.querySelector("#send");
+  var myId = "";
   btn.addEventListener("click", function (e) {
     //le "e" est un paramètre qui indique l'évènement
     e.preventDefault(); // ne pas avoir le comportement par défaut
     getInputValue(); // à l'appel de la fonction, elle va s'executer et récupérer la valeur de l'input
   });
+  socket.on("yourId", (infos) => {
+    myId = infos;
+    console.log(myId);
+  });
   socket.on("message", (infos) => {
     // on écoute sur le canal "message"
     console.log(infos); // infos correspond ici au contenu de notre message reçu
-    //infos = {texto,counter}
+
     var messages = document.getElementById("messages"); //On récupère l'élement que l'on veut en ciblant son id
     var message = document.createElement("li"); // on vient créer un nouvel élement "message" et qui aura comme balise un <li>
     message.setAttribute("id", "unmessage"); // on crée  id de notre nouvel élément
@@ -35,6 +40,14 @@
     trash.setAttribute("class", "trashButton");
     trash.innerText = "X";
     message.appendChild(trash);
+
+    //condition pour différencier les deux users
+    if (myId === infos.sentId) {
+      message.classList.add("myMessage");
+    }
+    else{
+      message.classList.add("otherMessage");
+    }
   });
 
   socket.on("deleteMessage", (number) => {
