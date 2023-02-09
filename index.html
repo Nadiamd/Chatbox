@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <title>CHAT</title>
+  </head>
+  <body>
+    <div id="header"></div>
+    <ul id="messages"></ul>
+    <form id="form"><input id="input" /><button id="send">SEND</button></form>
+  </body>
+</html>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+  const btn = document.querySelector("#send");
+  btn.addEventListener("click", function (e) {
+    //le "e" est un param qui indique l'évènement
+    e.preventDefault(); // ne pas avoir le comportement par défaut
+    getInputValue(); // à l'appel de la fonction, elle va s'executer et récupérer la valeur de l'input
+  });
+  socket.on("message", (data) => {
+    // on écoute sur le canal "message"
+    console.log(data); // data correspond ici au contenu de notre message reçu
+    var messages = document.getElementById("messages"); //On récupère l'élement que l'on veut en ciblant son id
+    var message = document.createElement("li"); // on vient créer un nouvel élement "message" et qui aura comme balise un <li>
+    message.setAttribute("id", "unmessage"); // on crée  id de notre nouvel élément
+    message.innerText = data; // on intègre les data dans le li que nous venons de créer
+    messages.appendChild(message);
+  });
+
+  function getInputValue() {
+    // Sélectionner l'élément input et récupérer sa valeur
+    var input = document.getElementById("input");
+    // Afficher la valeur
+    console.log(input.value);
+    // var messages = document.getElementById("messages"); //On récupère l'élement que l'on veut en ciblant son id
+    // var message = document.createElement("li"); // on vient créer un nouvel élement "message" et qui aura comme balise un <li>
+    // message.setAttribute("id", "unmessage"); // on crée  id de notre nouvel élément
+    // message.innerText = input.value; // on intègre du texte dans la li
+    // messages.appendChild(message);
+    socket.emit("message", input.value); //j'envoie input.value sur le canal "message" en socket
+    input.value = ""; // après l'envoi de notre message le input est "vidé".
+  }
+</script>
+
+<!--  -->
