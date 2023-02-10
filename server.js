@@ -25,7 +25,7 @@ io.on("connection", (socket) => {
 
     io.emit("message", newData); // le serveur renvoie "data" sur le canal "message"
     // création d'un compteur
-    counter += 1; // on incrémente de 1 à chaque fois
+    counter += 1; 
   });
   socket.on("disconnect", function () { 
     console.log("disconnected" + socket.id);
@@ -33,8 +33,8 @@ io.on("connection", (socket) => {
 
   socket.on("delete", (number) => {
     // on écoute sur le canal "delete"
-    io.emit("deleteMessage", number); // le serveur renvoie "number" de notre message à supprimer sur le canal "deleteMessage"
+    io.emit("deleteMessage", number); // le serveur renvoie le numeroe de notre message à supprimer sur le canal "deleteMessage"
   });
 });
 
-http.listen(port, () => {}); // Mise en ecoute du port 3000 et des qu'une personne se connecte sur le port et récupère le fihier HTML via la route get et l'affiche.
+http.listen(port, () => {}); // Mise en ecoute du port 3000 et des qu'une personne se connecte sur le port et récupère le fichier HTML via la route get et l'affiche.

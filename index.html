@@ -5,19 +5,25 @@
     <title>CHAT</title>
   </head>
   <body>
-    <div id="header"></div>
+    <div id="header">
+      <img
+        src="https://img.myloview.fr/images/default-profile-picture-avatar-photo-placeholder-vector-illustration-700-217453480.jpg"
+        class="user_img"
+      />
+    </div>
     <ul id="messages"></ul>
     <form id="form"><input id="input" /><button id="send">SEND</button></form>
+  
   </body>
 </html>
 
-<script src="/socket.io/socket.io.js"></script>
+<script src="/socket.io/socket.io.js"></script>  <!-- "connexion" à socketio  -->
 <script>
   var socket = io();
   const btn = document.querySelector("#send");
   var myId = "";
   btn.addEventListener("click", function (e) {
-    //le "e" est un paramètre qui indique l'évènement
+    // "e" est un paramètre qui indique l'évènement
     e.preventDefault(); // ne pas avoir le comportement par défaut
     getInputValue(); // à l'appel de la fonction, elle va s'executer et récupérer la valeur de l'input
   });
@@ -44,8 +50,7 @@
     //condition pour différencier les deux users
     if (myId === infos.sentId) {
       message.classList.add("myMessage");
-    }
-    else{
+    } else {
       message.classList.add("otherMessage");
     }
   });

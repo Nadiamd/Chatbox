@@ -1,10 +1,28 @@
+body,
+html {
+  height: 100px;
+  margin: 0;
+  background:#dfe0e7;
+ 
+}
+
 #header {
-  background-color: rgb(42, 138, 165);
   height: 100px;
   width: 100%;
   position: absolute;
   left: 0px;
   top: 0px;
+  background: -webkit-linear-gradient(to right, #576e87, #505982, #4b4d79);
+  background: linear-gradient(to right, #576e87, #505982, #4b4d79);
+  border-bottom-width: 4px;
+  border-bottom: #4b4d79 solid;
+}
+.user_img {
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  margin-top: 5px;
+  margin-left: 10px;
 }
 
 #messages {
@@ -13,7 +31,6 @@
 }
 #form {
   display: flex;
-  background-color: rgb(190, 190, 190);
   bottom: 0px;
   left: 0px;
   width: 100%;
@@ -24,8 +41,11 @@
   width: 95%;
   height: 50%;
   border-radius: 20px;
- margin-left: 10px;
+  margin-left: 10px;
+  margin-right: 5px;;
   margin-top: 20px;
+ background-color: #4b4d79;
+  
 }
 #send {
   height: 60px;
@@ -33,12 +53,14 @@
   border-radius: 50%;
   border: none;
   outline: none;
-  margin-left: 5px;
   align-items: flex-end;
+  margin-left: 5px;
+  margin-top: 15px;
+  margin-right:10px
 }
 
 .trashButton {
-  background-color: rgb(110, 153, 163);
+  background-color: rgb(185, 213, 219);
   border-radius: 100%;
   height: 30px;
   width: 30px;
@@ -55,9 +77,9 @@ li {
   margin-top: 18px;
 }
 .myMessage {
-  background-color: rgb(22, 146, 117);
+  background-color: #138151;
 }
 
 .otherMessage {
-  background-color: blue;
+  background-color:  #242764
 }
