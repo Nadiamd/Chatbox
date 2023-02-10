@@ -33,7 +33,7 @@ io.on("connection", (socket) => {
 
   socket.on("delete", (number) => {
     // on écoute sur le canal "delete"
-    io.emit("deleteMessage", number); // le serveur renvoie le numeroe de notre message à supprimer sur le canal "deleteMessage"
+    io.emit("deleteMessage", number); // le serveur renvoie le numero de notre message à supprimer sur le canal "deleteMessage"
   });
 });
 
